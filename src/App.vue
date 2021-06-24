@@ -5,9 +5,11 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-2"
+      content-class="bg-secondary text-white"
+      side="left"
+      :width="340"
     >
-    <UiSideBar />
+      <UiSideBar />
     </q-drawer>
 
     <q-page-container>
@@ -23,7 +25,7 @@ import UiSideBar from "./components/UiSideBar.vue";
 export default {
   components: {
     UiSideBar,
-    UiContent
+    UiContent,
   },
 
   data() {
