@@ -21,7 +21,6 @@
       <q-item-section bottom thumbnail class="q-ml-none">
         <img src="@/assets/Card.svg" />
       </q-item-section>
-
       <q-item-section>
         <q-item-label>Cards</q-item-label>
       </q-item-section>
