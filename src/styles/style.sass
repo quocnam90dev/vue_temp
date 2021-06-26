@@ -1,3 +1,7 @@
+.clearfix
+  &::after
+    clear: both
+    content: ''
 .q-list
   padding: 0 32px
   .sidebar
@@ -73,14 +77,25 @@
 
 .btn
   &--new_card
+    background: rgba(50, 91, 175, 1)
     span
       font-size: 13px
       font-weight: 700
       text-transform: none
 
 .tab__header
+  margin-bottom: 15px
+  .q-tab--active .q-tab__label
+    color: #000
+  .fixed-bottom, .absolute-bottom
+    bottom: 7px
+    background: rgba(35, 206, 253, 1)
   .q-tab
     padding: 0
     margin-right: 32px
     .q-tab__label
       text-transform: none
+
+.my_debit_cards
+  &--wrapper
+    padding: 44px 32px

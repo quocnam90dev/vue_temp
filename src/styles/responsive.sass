@@ -1,0 +1,89 @@
+.visible-xs
+  display: none
+
+@media all and (max-width: 768px)
+
+  .text-right
+    position: relative
+  .mobile__logo
+    position: absolute
+    right: 0
+    bottom: 100%
+    margin-top: -30px
+  .btn--new_card
+    background: transparent
+    .q-btn__wrapper
+      padding: 0
+    span
+      &:before
+        display: none
+      color: rgba(35, 206, 253, 1)
+
+  .visible-xs
+    display: block !important
+  .hidden-xs
+    display: none !important
+  .wrapper
+    padding: 0
+    background: $secondary
+  .content__top
+    position: sticky
+    top: 0
+    padding: 54px 24px 24px
+    &--price
+      .price--label
+        font-weight: 700
+      strong, .price--label
+        color: #fff
+  .tab__header
+    margin-bottom: 50px
+    .q-tab
+      margin-right: 20px
+      flex: none !important
+      margin-right: 30px
+      .q-tab__label
+        color: rgba(255, 255, 255, .5)
+    .q-tab--active .q-tab__label
+      color: #fff
+
+  .my_debit_cards--wrapper
+    padding: 0
+
+  .main__content
+    .q-tab-panel
+      padding: 0
+    .q-card > div:last-child, .q-card > img:last-child
+      border-radius: 0 !important
+
+  .card__xs
+    .q-carousel
+      background: none
+      background: $secondary
+  .card__ui .show_card_number
+    font-size: 12px
+    background: #fff
+  .card__ui .q-carousel__navigation
+    margin-bottom: -5px
+  .quick__actions
+    margin-top: 0
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
+    &--list
+      padding: 20px 8px
+    .q-btn__wrapper
+      padding: 4px 6px
+  .custom__on_xs
+    background: $secondary
+    .expansion__item .q-list
+      background: #fff
+  .expansion__item
+    padding: 24px 24px 24px
+    background: #fff
+    .q-expansion-item .q-item--clickable
+      border: 1px solid #F0F0F0
+  .detail_transactions__list
+    padding: 0 20px
+    .sidetop__price
+      padding-left: 0 !important
+    .q-btn__wrapper
+      font-size: 12px

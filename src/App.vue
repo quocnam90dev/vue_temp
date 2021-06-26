@@ -15,17 +15,20 @@
     <q-page-container>
       <UiContent />
     </q-page-container>
+    <UiFooterMobile />
   </q-layout>
 </template>
 
 <script>
 import UiContent from "./components/UiContent.vue";
 import UiSideBar from "./components/UiSideBar.vue";
+import UiFooterMobile from "./components/UiFooterMobile.vue";
 
 export default {
   components: {
     UiSideBar,
     UiContent,
+    UiFooterMobile,
   },
 
   data() {

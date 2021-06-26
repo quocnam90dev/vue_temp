@@ -1,0 +1,132 @@
+.expansion__item
+  .q-list
+    padding: 0
+  .q-expansion-item
+    margin-bottom: 24px
+    &__toggle-icon
+      border: 1px solid #ccc
+      border-radius: 100%
+    &:last-child
+      margin-bottom: 0
+    &__container
+      border-radius: 5px
+
+    .q-item--clickable
+      padding: 25px
+      background: rgba(245, 249, 255, 1)
+    &__content
+      .q-card
+        &__section
+          padding: 0
+  .q-item__section--avatar
+    padding-right: 12px
+    min-width: 36px
+
+body.desktop
+  .q-expansion-item
+    border: 1px solid #F0F0F0
+
+    .q-item.q-item-type.row.no-wrap.q-item--clickable > .q-focus-helper
+      background: currentColor
+      opacity: .05
+
+.detail_transactions__list
+  padding: 0 25px
+  .q-item
+    padding: 25px 0 10px 0
+    border-bottom: 1px solid #F0F0F0
+    &:last-child
+      border-bottom: 0
+  .q-item__label
+    margin-bottom: 10px
+    &:last-child
+      margin-bottom: 0
+  .q-avatar
+    font-size: 48px !important
+    text-align: center
+    margin-top: -5px
+    &__content
+      width: 48px
+      height: 48px
+      position: relative
+      &:after
+        z-index: 0
+        content: ''
+        width: 100%
+        height: 100%
+        border-radius: 100%
+        position: absolute
+        left: 0
+        top: 0
+      img
+        width: 16px !important
+        height: 16px !important
+
+    &.ico_bg_blue
+      .q-avatar__content:after
+        background: rgba(0, 157, 255, 0.1)
+    &.ico_bg_green
+      .q-avatar__content:after
+        background: rgba(0, 214, 181, 0.1)
+    &.ico_bg_pink
+      .q-avatar__content:after
+        background: rgba(242, 81, 149, 0.1)
+  .sidetop__price
+    position: relative
+    padding-right: 20px !important
+    .ico__right__arrow
+      position: absolute
+      right: 0
+      top: 0
+      margin-top: -4px
+      margin-right: -4px
+    .price
+      font-weight: 700
+      font-size: 14px
+      color: rgba(34, 34, 34, 1)
+      &.active
+        color: rgba(1, 209, 103, 1)
+
+.card__transactions
+  border: 1px solid #F0F0F0
+  border-top: 0
+  border-bottom-right-radius: 10px !important
+  border-bottom-left-radius: 10px !important
+  background: #fff
+  &--outer
+    background: #ddffec
+.debit_card_ico
+  position: relative
+  transition: all .3s
+  .q-focus-helper
+    display: none !important
+  &:hover
+    opacity: .6
+  .q-btn__content
+    padding-left: 20px
+  &:after
+    content: url('../assets/business-and-finance.svg')
+    width: 25px
+    height: 25px
+    border-radius: 100%
+    position: absolute
+    left: 0
+    top: 5px
+    background: #325BAF
+
+.view__all
+  text-align: center
+  font-size: 13px
+  font-weight: 600
+  color: rgba(1, 209, 103, 1)
+  background: rgba(221, 255, 236, 1)
+  border: 1px solid rgba(221, 255, 236, 1)
+
+.q-item__section--main
+  position: relative
+  padding-bottom: 30px
+.btn__refund
+  position: absolute
+  left: 0
+  bottom: 0
+  width: 190px

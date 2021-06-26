@@ -9,49 +9,70 @@
             <strong>3,000</strong>
           </div>
           <div class="col-6 text-right">
+            <div class="visible-xs mobile__logo">
+              <img src="@/assets/green_logo.svg" alt="">
+            </div>
             <q-btn
-              color="blue-10"
               icon="add_circle"
               label="New card"
               class="btn--new_card"
             />
           </div>
         </div>
-      </div>
-      <div class="col-12">
-        <q-tabs
-          v-model="tab"
-          narrow-indicator
-          align="left"
-          class='tab__header'
-        >
-          <q-tab class="text-purple" name="my_debit_cards" label="My debit cards" />
-          <q-tab class="text-orange" name="all_company_cards" label="All company cards" />
+
+        <q-tabs v-model="tab" narrow-indicator align="left" class="tab__header">
+          <q-tab
+            class="text-grey-7"
+            name="my_debit_cards"
+            label="My debit cards"
+          />
+          <q-tab
+            class="text-grey-7"
+            name="all_company_cards"
+            label="All company cards"
+          />
         </q-tabs>
 
-         <q-card>
-        <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="my_debit_cards">
-            <div class="text-h6">Mails</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-          <q-tab-panel name="all_company_cards">
-            <div class="text-h6">Alarms</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-        </q-tab-panels>
-      </q-card>
+        <div class="visible-xs card__xs">
+          <UiCarousel :height="'230px'"/>
+        </div>
+
+      </div>
+      <div class="col-12">
+        <q-card class='main__content'>
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel name="my_debit_cards">
+              <div class="my_debit_cards--wrapper">
+                <div class="row q-col-gutter-xl">
+                  <div class="col-xs-12 col-sm-12 col-md-6 hidden-xs">
+                    <UiCarousel :height="'320px'"/>
+                    <UiQuickActions />
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 custom__on_xs">
+                    <UiQuickActions class='visible-xs'/>
+                    <UiExpansionItem />
+                  </div>
+                </div>
+              </div>
+            </q-tab-panel>
+            <q-tab-panel name="all_company_cards"> </q-tab-panel>
+          </q-tab-panels>
+        </q-card>
       </div>
     </div>
   </q-page>
 </template>
 
 <script>
+import UiCarousel from "./UiCarousel.vue";
+import UiQuickActions from "./UiQuickActions.vue";
+import UiExpansionItem from "./UiExpansionItem.vue";
 export default {
-  data () {
+  data() {
     return {
-      tab: 'my_debit_cards'
-    }
-  }
-}
+      tab: "my_debit_cards",
+    };
+  },
+  components: { UiCarousel, UiQuickActions, UiExpansionItem },
+};
 </script>
