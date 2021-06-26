@@ -19,31 +19,28 @@
         </div>
       </div>
       <div class="col-12">
-        <q-option-group
-          v-model="panel"
-          inline
-          :options="[
-            { label: 'Mails', value: 'mails' },
-            { label: 'Alarms', value: 'alarms' },
-            { label: 'Movies', value: 'movies' },
-          ]"
-        />
-        <q-tab-panels v-model="panel" animated class="shadow-2 rounded-borders">
-          <q-tab-panel name="mails">
+        <q-tabs
+          v-model="tab"
+          narrow-indicator
+          align="left"
+          class='tab__header'
+        >
+          <q-tab class="text-purple" name="my_debit_cards" label="My debit cards" />
+          <q-tab class="text-orange" name="all_company_cards" label="All company cards" />
+        </q-tabs>
+
+         <q-card>
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="my_debit_cards">
             <div class="text-h6">Mails</div>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </q-tab-panel>
-
-          <q-tab-panel name="alarms">
+          <q-tab-panel name="all_company_cards">
             <div class="text-h6">Alarms</div>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </q-tab-panel>
-
-          <q-tab-panel name="movies">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
         </q-tab-panels>
+      </q-card>
       </div>
     </div>
   </q-page>
@@ -53,7 +50,7 @@
 export default {
   data () {
     return {
-      panel: 'mails'
+      tab: 'my_debit_cards'
     }
   }
 }
