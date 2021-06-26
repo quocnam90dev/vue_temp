@@ -8,7 +8,7 @@
           </q-avatar>
         </q-item-section>
 
-        <q-item-section>
+        <q-item-section class='detail_transactions__list--content'>
           <q-item-label>{{ transaction.name }}</q-item-label>
           <q-item-label caption>{{ transaction.date }}</q-item-label>
           <div class='btn__refund'>
