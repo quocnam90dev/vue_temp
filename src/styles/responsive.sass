@@ -2,7 +2,6 @@
   display: none
 
 @media all and (max-width: 768px)
-
   .text-right
     position: relative
   .mobile__logo
@@ -66,14 +65,15 @@
     background: #fff
   .card__ui .q-carousel__navigation
     margin-bottom: -5px
-  .quick__actions
-    margin-top: 0
-    border-bottom-left-radius: 0
-    border-bottom-right-radius: 0
-    &--list
-      padding: 20px 8px
-    .q-btn__wrapper
-      padding: 4px 6px
+  .visible-xs
+    &.quick__actions
+      margin-top: 0
+      border-bottom-left-radius: 0
+      border-bottom-right-radius: 0
+      &--list
+        padding: 20px 8px
+      .q-btn__wrapper
+        padding: 4px 6px
   .custom__on_xs
     background: $secondary
     .expansion__item .q-list
