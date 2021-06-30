@@ -27,12 +27,22 @@
               label="Amount "
               stack-label
             />
-            <q-input
+            <q-select
               outlined
-              v-model="loan.loan_term"
-              label="Loan term"
               stack-label
+              v-model="loan.loan_term"
+              :options="[
+                '1 years',
+                '2 years',
+                '3 years',
+                '4 years',
+                '5 years',
+                '6 years',
+                'Other'
+              ]"
+              label="Loan term"
             />
+
             <q-input
               outlined
               stack-label
@@ -102,13 +112,13 @@ const LOAN_PARAMS = {
   amount: "",
   loan_term: "",
   date_signed: "",
-  reason: "",
+  reason: ""
 }
 export default {
   props: ["cardOpened"],
   data() {
     return {
-      loan: { ...LOAN_PARAMS },
+      loan: { ...LOAN_PARAMS }
     }
   },
   methods: {
@@ -117,7 +127,7 @@ export default {
     },
     createLoan() {
       this.cardOpened.open = false
-    },
-  },
+    }
+  }
 }
 </script>
