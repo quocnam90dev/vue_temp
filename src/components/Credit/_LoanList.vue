@@ -6,12 +6,16 @@
       </div>
       <div class="col-6">
         <q-btn
-          style="background: #ff0080; color: white"
+          dense
+          outline
+          flat
+          text-color="primary"
           label="Create Loan"
           icon="add"
+          style="padding: 5px 10px"
           @click="cardOpened.open = true"
         />
-        <FormCreate :card-opened="cardOpened" />
+        <FormCreate :card-opened="cardOpened" @createLoan="createLoan" />
       </div>
     </div>
     <q-separator />
@@ -25,59 +29,52 @@
           <th width="20%" class="text-right">
             Date Signed (Weekly repayment feq)
           </th>
-          <th width="25%" class="text-right">Reason</th>
+          <th class="text-right">Reason</th>
+          <th class="text-right">Approved</th>
           <th class="text-right">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="text-left">Frozen Yogurt</td>
-          <td class="text-right">159</td>
-          <td class="text-right">6</td>
-          <td class="text-right">24</td>
-          <td class="text-right">4</td>
+        <tr v-for="(loan, i) in loans" :key="i">
+          <td class="text-left">{{ loan.purpose }}</td>
+          <td class="text-right">{{ loan.amountRequired }} $$</td>
+          <td class="text-right">{{ loan.loanTerm }}</td>
           <td class="text-right">
-            <q-btn outline color="warning" label="Repay" no-caps />
+            {{ renderDate(loan.dateSigned, "MM/dd/yyyy HH:MM") }}
           </td>
-        </tr>
-        <tr>
-          <td class="text-left">Ice cream sandwich</td>
-          <td class="text-right">237</td>
-          <td class="text-right">9</td>
-          <td class="text-right">37</td>
-          <td class="text-right">4.3</td>
-          <td class="text-right">
-            <q-btn outline color="primary" label="Repaid" no-caps />
+          <td class="text-right">{{ loan.reason }}</td>
+          <td class="text-center">
+            <q-icon name="help" class="text-orange" style="font-size: 2em" />
           </td>
-        </tr>
-        <tr>
-          <td class="text-left">Eclair</td>
-          <td class="text-right">262</td>
-          <td class="text-right">16</td>
-          <td class="text-right">23</td>
-          <td class="text-right">6</td>
           <td class="text-right">
-            <q-btn outline color="primary" label="Repaid" no-caps />
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">Cupcake</td>
-          <td class="text-right">305</td>
-          <td class="text-right">3.7</td>
-          <td class="text-right">67</td>
-          <td class="text-right">4.3</td>
-          <td class="text-right">
-            <q-btn outline color="warning" label="Repay" no-caps />
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">Gingerbread</td>
-          <td class="text-right">356</td>
-          <td class="text-right">16</td>
-          <td class="text-right">49</td>
-          <td class="text-right">3.9</td>
-          <td class="text-right">
-            <q-btn outline color="warning" label="Repay" no-caps />
+            <div class="row">
+              <div v-if="!loan.repaid">
+                <q-btn
+                  outline
+                  color="warning"
+                  label="Repay"
+                  no-caps
+                  :disable="!checkweeklyRepaid(loan.dateSigned)"
+                  @click="
+                    checkweeklyRepaid(loan.dateSigned) && updateRepay(loan.id)
+                  "
+                />
+
+                <q-tooltip content-class="bg-accent"
+                  >It'll available in your weekly repay from your date
+                  signed.</q-tooltip
+                >
+              </div>
+              <q-btn
+                flat
+                dense
+                color="primary"
+                label="Repaid"
+                icon="paid"
+                no-caps
+                v-else
+              />
+            </div>
           </td>
         </tr>
       </tbody>
@@ -86,13 +83,48 @@
 </template>
 
 <script>
+import format from "date-fns/format"
+import addDays from "date-fns/addDays"
+
 import FormCreate from "@/components/Credit/_Form.vue"
+import { RepositoryFactory } from "@/repositories/RepositoryFactory"
+
+const LoansRepository = RepositoryFactory.get("loans")
+
 export default {
   components: { FormCreate },
   data() {
     return {
       cardOpened: { open: false },
+      loans: [],
     }
+  },
+  created() {
+    this.fetch()
+  },
+  methods: {
+    checkweeklyRepaid(dateSigned) {
+      let nextSevenDay = addDays(new Date(dateSigned), 7)
+      return new Date() > nextSevenDay
+    },
+    renderDate(ISOdateString, str_type) {
+      return format(new Date(ISOdateString), str_type)
+    },
+
+    createLoan(payload) {
+      console.log('[🐞]_________')
+      console.log(payload)
+      console.log('_________[🐞]')
+    },
+    updateRepay(id) {
+      LoansRepository.updateLoan(id, { repaid: true }).then(() => {
+        this.fetch()
+      })
+    },
+    async fetch() {
+      const { data } = await LoansRepository.get()
+      this.loans = data
+    },
   },
 }
 </script>
