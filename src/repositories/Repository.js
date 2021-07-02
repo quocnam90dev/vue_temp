@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseDomain = "http://localhost:3001"
+const baseDomain = process.env.BASE_URL
 const baseURL = `${baseDomain}/api`
 
 export default axios.create({
