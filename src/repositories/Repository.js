@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseDomain = process.env.BASE_URL
+const baseDomain = "https://hidden-reaches-35190.herokuapp.com"
 const baseURL = `${baseDomain}/api`
 
 export default axios.create({
