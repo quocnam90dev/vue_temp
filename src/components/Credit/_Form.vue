@@ -19,7 +19,7 @@
               />
               <q-input
                 outlined
-                v-model.number="loan.amount"
+                v-model.number="loan.amountRequired"
                 type="number"
                 label="Amount "
                 stack-label
@@ -28,7 +28,7 @@
               <q-select
                 outlined
                 stack-label
-                v-model="loan.loan_term"
+                v-model="loan.loanTerm"
                 :options="[
                   '1 years',
                   '2 years',
@@ -45,7 +45,7 @@
               <q-input
                 outlined
                 stack-label
-                v-model="loan.date_signed"
+                v-model="loan.dateSigned"
                 mask="date"
                 :rules="['date']"
               >
@@ -57,7 +57,7 @@
                       transition-hide="scale"
                     >
                       <q-date
-                        v-model="loan.date_signed"
+                        v-model="loan.dateSigned"
                         :today-btn="true"
                         :minimal="true"
                       >
@@ -102,9 +102,9 @@
 <script>
 const LOAN_PARAMS = {
   purpose: "",
-  amount: "",
-  loan_term: "",
-  date_signed: "",
+  amountRequired: "",
+  loanTerm: "",
+  dateSigned: "",
   reason: "",
 }
 export default {
@@ -122,9 +122,9 @@ export default {
     onSubmit() {
       if (
         this.loan.purpose &&
-        this.loan.amount &&
-        this.loan.loan_term &&
-        this.loan.date_signed
+        this.loan.amountRequired &&
+        this.loan.loanTerm &&
+        this.loan.dateSigned
       ) {
         this.$emit("createLoan", this.loan)
         this.onReset()

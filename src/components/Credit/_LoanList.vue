@@ -4,18 +4,23 @@
       <div class="col-3">
         <h2>Loan List</h2>
       </div>
-      <div class="col-6">
-        <q-btn
-          dense
-          outline
-          flat
-          text-color="primary"
-          label="Create Loan"
-          icon="add"
-          style="padding: 5px 10px"
-          @click="cardOpened.open = true"
-        />
-        <FormCreate :card-opened="cardOpened" @createLoan="createLoan" />
+      <div class="col-6" >
+        <div v-if="!is_admin">
+          <q-btn
+            dense
+            outline
+            flat
+            text-color="primary"
+            label="Create Loan"
+            icon="add"
+            style="padding: 5px 10px"
+            @click="cardOpened.open = true"
+          />
+          <FormCreate :card-opened="cardOpened" @createLoan="createLoan" />
+        </div>
+      </div>
+      <div class="col-3 text-right">
+        Current Role: <q-toggle color="primary" label="Admin" v-model="is_admin" />
       </div>
     </div>
     <q-separator />
@@ -31,7 +36,7 @@
           </th>
           <th class="text-right">Reason</th>
           <th class="text-right">Approved</th>
-          <th class="text-right">Action</th>
+          <th class="text-center">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -44,25 +49,28 @@
           </td>
           <td class="text-right">{{ loan.reason }}</td>
           <td class="text-center">
-            <q-icon name="help" class="text-orange" style="font-size: 2em" />
+            <q-icon
+              :name="loan.approved ? 'checked' : 'help'"
+              :class="loan.approved ? 'text-primary' : 'text-orange'"
+              style="font-size: 2em"
+              />
           </td>
           <td class="text-right">
-            <div class="row">
+            <div class="row" v-if="!is_admin">
               <div v-if="!loan.repaid">
                 <q-btn
                   outline
                   color="warning"
                   label="Repay"
                   no-caps
-                  :disable="!checkweeklyRepaid(loan.dateSigned)"
-                  @click="
-                    checkweeklyRepaid(loan.dateSigned) && updateRepay(loan.id)
-                  "
+                  :disable="!loan.approved || !checkweeklyRepaid(loan.dateSigned)"
+                  @click="updateRepay(loan.id)"
                 />
 
-                <q-tooltip content-class="bg-accent"
-                  >It'll available in your weekly repay from your date
-                  signed.</q-tooltip
+                <q-tooltip content-class="bg-accent" v-if="!checkweeklyRepaid(loan.dateSigned)">
+                  It'll available in your weekly repay from your date
+                  signed.
+                </q-tooltip
                 >
               </div>
               <q-btn
@@ -73,6 +81,15 @@
                 icon="paid"
                 no-caps
                 v-else
+              />
+            </div>
+            <div class="admin_action" v-else>
+              <q-btn
+                color="primary"
+                label="Approve"
+                @click="approveLoan(loan.id)"
+                v-if="!loan.approved"
+                no-caps
               />
             </div>
           </td>
@@ -95,6 +112,7 @@ export default {
   components: { FormCreate },
   data() {
     return {
+      is_admin: false,
       cardOpened: { open: false },
       loans: [],
     }
@@ -103,6 +121,12 @@ export default {
     this.fetch()
   },
   methods: {
+    approveLoan(id) {
+      LoansRepository.updateLoan(id, { approved: true }).then(() => {
+        this.fetch()
+      })
+    },
+
     checkweeklyRepaid(dateSigned) {
       let nextSevenDay = addDays(new Date(dateSigned), 7)
       return new Date() > nextSevenDay
@@ -112,9 +136,9 @@ export default {
     },
 
     createLoan(payload) {
-      console.log('[🐞]_________')
-      console.log(payload)
-      console.log('_________[🐞]')
+      LoansRepository.createLoan(payload).then(() => {
+        this.fetch()
+      })
     },
     updateRepay(id) {
       LoansRepository.updateLoan(id, { repaid: true }).then(() => {
